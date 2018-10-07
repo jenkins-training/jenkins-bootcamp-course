@@ -40,5 +40,5 @@ rm default
 cd /etc/nginx/conf.d
 wget https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/master/aws/lightsail/lightsail-jenkins.conf
 
-systemctl start nginx
+systemctl restart nginx
 systemctl enable nginx
