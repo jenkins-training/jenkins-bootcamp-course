@@ -33,9 +33,12 @@ systemctl enable jenkins
 
 apt-get install -y nginx
 
-# cd /etc/nginx/conf.d
-# mv default.conf default.conf.disabled
-# wget https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/master/aws/lightsail/lightsail-jenkins.conf
+# remove default symlink
+cd /etc/nginx/sites-enabled
+rm default
+
+cd /etc/nginx/conf.d
+wget https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/master/aws/lightsail/lightsail-jenkins.conf
 
 systemctl start nginx
 systemctl enable nginx
