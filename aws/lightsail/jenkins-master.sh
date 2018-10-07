@@ -31,4 +31,8 @@ apt-get install -y jenkins
 systemctl start jenkins
 systemctl enable jenkins
 
+apt-get install -y nginx
+
+systemctl start nginx
+systemctl enable nginx
 
