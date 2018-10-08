@@ -2,7 +2,6 @@
 
 # Update from OS install
 apt-get update -y
-apt-get upgrade -y
 
 # Common utilities
 apt-get install -y nano zip unzip wget curl git
