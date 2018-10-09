@@ -2,6 +2,9 @@
 
 systemctl stop nginx
 
+cd /var/www
+mkdir jenkins
+
 cd /etc/nginx/conf.d
 if [ -f lightsail-jenkins.conf ]; then
   rm lightsail-jenkins.conf
