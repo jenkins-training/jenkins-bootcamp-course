@@ -16,3 +16,13 @@ ln -s ../sites-available/jenkins-secured.conf jenkins.conf
 cd
 nginx -t
 
+systemctl start nginx
+
+apt-get update -y
+apt-get install -y software-properties-common
+add-apt-repository ppa:certbot/certbot -y
+apt-get update -y
+apt-get install -y python-certbot-nginx
+
+# Once complete, run command as root:
+# certbot --nginx
