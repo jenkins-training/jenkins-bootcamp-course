@@ -28,4 +28,4 @@ apt-get update -y
 apt-get install -y python-certbot-nginx
 
 # Once complete, run command as root:
-# certbot --nginx
+# certbot certonly --webroot -w /var/www/jenkins/ -d build.jenkins.training
