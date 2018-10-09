@@ -10,3 +10,9 @@ fi
 cd /etc/nginx/sites-available
 wget https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/master/aws/lightsail/jenkins-secured.conf
 
+cd ../sites-enabled
+ln -s ../sites-available/jenkins-secured.conf jenkins.conf
+
+cd
+nginx -t
+
