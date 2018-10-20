@@ -12,7 +12,14 @@ wget https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/
 # remove default symlink
 cd /etc/nginx/sites-enabled
 rm default
-ln -s ../sites-available/webproxy.conf webproxy.conf
+ln -s ../sites-available/web.conf web.conf
+
+mkdir -p /var/log/nginx/jenkins
+
+mkdir -p /var/www/jenkins
+cd /var/www/jenkins
+wget https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/master/aws/lightsail/scale/index.html
+chmod 644 index.html
 
 cd
 nginx -t
