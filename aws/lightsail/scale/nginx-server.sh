@@ -7,12 +7,12 @@ apt-get update -y
 apt-get install -y nano zip unzip wget curl nginx
 
 cd /etc/nginx/sites-available
-wget https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/master/aws/lightsail/jenkins-secured.conf
+wget https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/master/aws/lightsail/scale/webproxy.conf
 
 # remove default symlink
 cd /etc/nginx/sites-enabled
 rm default
-ln -s ../sites-available/jenkins-secured.conf jenkins.conf
+ln -s ../sites-available/webproxy.conf webproxy.conf
 
 cd
 nginx -t
