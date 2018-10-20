@@ -7,7 +7,7 @@ apt-get update -y
 apt-get install -y nano zip unzip wget curl nginx
 
 cd /etc/nginx/sites-available
-wget https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/master/aws/lightsail/scale/webproxy.conf
+wget https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/master/aws/lightsail/scale/web.conf
 
 # remove default symlink
 cd /etc/nginx/sites-enabled
@@ -15,6 +15,8 @@ rm default
 ln -s ../sites-available/web.conf web.conf
 
 mkdir -p /var/log/nginx/jenkins
+cd /var/log/nginx
+chown www-data.adm jenkins
 
 mkdir -p /var/www/jenkins
 cd /var/www/jenkins
