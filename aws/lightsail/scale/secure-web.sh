@@ -8,14 +8,14 @@ fi
 
 if [ "" == "$1" ]; then
   echo "Please provide domain name:"
-  echo "  update-web.sh full.domain.name email@domain.name"
+  echo "  secure-web.sh full.domain.name email@domain.name"
   exit 1
 fi
 DOMAIN=$1
 
 if [ "" == "$2" ]; then
   echo "Please provide email address:"
-  echo "  update-web.sh full.domain.name email@domain.name"
+  echo "  secure-web.sh full.domain.name email@domain.name"
   exit 1
 fi
 EMAIL=$2
