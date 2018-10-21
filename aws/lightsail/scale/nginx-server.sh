@@ -29,11 +29,14 @@ nginx -t
 systemctl restart nginx
 systemctl enable nginx
 
+wget https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/master/aws/lightsail/scale/secure-web.sh
+chmod 755 secure-web.sh
+
 apt-get update -y
 apt-get install -y software-properties-common
 add-apt-repository ppa:certbot/certbot -y
 apt-get update -y
 apt-get install -y python-certbot-nginx
 
-# Once complete, run command as root:
-# certbot certonly --webroot -w /var/www/jenkins/ -d build.jenkins.training
+# Once complete, login as root and run command:
+# ./secure-web.sh domain.name email@domain.name
