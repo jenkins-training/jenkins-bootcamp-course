@@ -10,8 +10,8 @@ cd /etc/nginx
 wget https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/master/aws/lightsail/scale/secure-web.sh
 chmod 755 secure-web.sh
 
-wget https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/master/aws/lightsail/scale/secure-web.sh
-chmod 755 secure-web.sh
+wget https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/master/aws/lightsail/scale/setup-proxy.sh
+chmod 755 setup-proxy.sh
 
 cd /etc/nginx/sites-available
 wget https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/master/aws/lightsail/scale/web.conf
