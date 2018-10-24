@@ -2,9 +2,12 @@
 
 # Update from OS install
 apt-get update -y
+sleep 10
 
 # Common utilities
-apt-get install -y nano zip unzip wget curl git build-essentials
+apt-get install -y nano wget curl git
+apt-get install -y zip unzip
+apt-get install -y build-essentials
 
 # Install Java 8
 apt-get install -y openjdk-8-jdk openjdk-8-jdk-headless
