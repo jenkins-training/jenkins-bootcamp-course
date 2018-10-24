@@ -32,31 +32,35 @@ if [ -d $SDKMAN_DIR ]; then
     cd $SDKMAN_DIR
     mkdir etc
     chmod 644 etc
-    echo "sdkman_auto_answer=true" >> "$SDKMAN_DIR/etc/config"
-    chmod 644 etc/config
+    cd etc
+    echo "sdkman_auto_answer=true" >> config
+    chmod 644 config
 
-    [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+    cd $SDKMAN_DIR
+    if [ -s ./bin/sdkman-init.sh ]; then
+      source ./bin/sdkman-init.sh
 
-    sdk version
-    sdk install groovy
-    sdk install maven
-    sdk install gradle
-    sdk install scala
-    sdk install sbt
-    sdk install ant
-    sdk install kotlin
-    sdk install kscript
+      sdk version
+      sdk install groovy
+      sdk install maven
+      sdk install gradle
+      sdk install scala
+      sdk install sbt
+      sdk install ant
+      sdk install kotlin
+      sdk install kscript
 
-    # Symlinks to tools
-    cd /usr/local
-    ln -s sdkman/candidates/maven maven
-    ln -s sdkman/candidates/ant ant
-    ln -s sdkman/candidates/groovy groovy
-    ln -s sdkman/candidates/gradle gradle
-    ln -s sdkman/candidates/sbt sbt
-    ln -s sdkman/candidates/scala scala
-    ln -s sdkman/candidates/kotlin kotlin
-    ln -s sdkman/candidates/kscript kscript
+      # Symlinks to tools
+      cd /usr/local
+      ln -s sdkman/candidates/maven maven
+      ln -s sdkman/candidates/ant ant
+      ln -s sdkman/candidates/groovy groovy
+      ln -s sdkman/candidates/gradle gradle
+      ln -s sdkman/candidates/sbt sbt
+      ln -s sdkman/candidates/scala scala
+      ln -s sdkman/candidates/kotlin kotlin
+      ln -s sdkman/candidates/kscript kscript
+    fi
 else
   echo "Unable to find $SDKMAN_DIR; several tools not installed"
 fi
