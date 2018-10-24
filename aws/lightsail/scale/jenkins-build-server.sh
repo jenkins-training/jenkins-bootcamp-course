@@ -65,6 +65,9 @@ sleep 10
 nvm install node
 nvm install --lts
 
+nvm exec --lts npm install -g karma grunt-cli webpack gulp-cli
+nvm exec npm install -g karma grunt-cli webpack gulp-cli
+
 # Setup Jenkins user
 cd
 adduser --disabled-password --gecos "" jenkins
@@ -73,6 +76,7 @@ cd /home/jenkins
 mkdir .ssh
 chmod 700 .ssh
 chown jenkins.jenkins .ssh
+cd .ssh
 cp /home/ubuntu/.ssh/authorized_keys .
 chmod 600 authorized_keys
 chown jenkins.jenkins authorized_keys
