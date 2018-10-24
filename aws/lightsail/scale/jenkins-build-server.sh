@@ -10,12 +10,15 @@ apt-get install -y nano zip unzip wget curl git
 apt-get install -y openjdk-8-jdk openjdk-8-jdk-headless
 
 # install Maven
-MVN_VER=3.5.4
+# MVN_VER=3.5.4
+#
+# cd /usr/local
+# wget http://www-us.apache.org/dist/maven/maven-3/$MVN_VER/binaries/apache-maven-$MVN_VER-bin.tar.gz
+# tar -xvzf apache-maven-$MVN_VER-bin.tar.gz
+# ln -s apache-maven-$MVN_VER maven
+# chown -R root.root apache-maven-$MVN_VER
+# chmod 755 apache-maven-$MVN_VER
+# ln -s maven/bin/mvn bin/mvn
 
-cd /usr/local
-wget http://www-us.apache.org/dist/maven/maven-3/$MVN_VER/binaries/apache-maven-$MVN_VER-bin.tar.gz
-tar -xvzf apache-maven-$MVN_VER-bin.tar.gz
-ln -s apache-maven-$MVN_VER maven
-chown -R root.root apache-maven-$MVN_VER
-chmod 755 apache-maven-$MVN_VER
-ln -s maven/bin/mvn bin/mvn
+export SDKMAN_DIR="/usr/local/sdkman"
+curl -s "https://get.sdkman.io" | bash
