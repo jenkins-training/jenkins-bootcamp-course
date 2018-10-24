@@ -10,11 +10,11 @@ apt-get install -y nano zip unzip wget curl git build-essentials
 apt-get install -y openjdk-8-jdk openjdk-8-jdk-headless
 
 # Docker (official)
-apt-get install apt-transport-https ca-certificates curl software-properties-common
+apt-get install -y apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 
 cd /etc/apt/sources.list.d
-cat "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" >> docker.list
+echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" >> docker.list
 apt-get update -y
 apt-get install -y docker-ce
 docker --version
@@ -25,8 +25,13 @@ cd /usr/local
 export SDKMAN_DIR="/usr/local/sdkman"
 curl -s "https://get.sdkman.io" | bash
 sleep 10
+cd $SDKMAN_DIR
+pwd
+mkdir etc
+chmod 644 etc
 cat "sdkman_auto_answer=true" >> "$SDKMAN_DIR/etc/config"
-source "$SDKMAN_DIR/bin/sdkman-init.sh"
+chmod 644 etc/config
+source ./bin/sdkman-init.sh
 
 sdk version
 sdk install groovy
