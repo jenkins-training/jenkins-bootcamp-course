@@ -29,16 +29,13 @@ export SDKMAN_DIR="/usr/local/sdkman"
 curl -s "https://get.sdkman.io" | bash
 sleep 10
 if [ -d $SDKMAN_DIR ]; then
-    cd $SDKMAN_DIR
-    mkdir etc
-    chmod 644 etc
-    cd etc
+    cd $SDKMAN_DIR/etc
     echo "sdkman_auto_answer=true" >> config
     chmod 644 config
 
     cd $SDKMAN_DIR
-    if [ -s ./bin/sdkman-init.sh ]; then
-      source ./bin/sdkman-init.sh
+    if [ -s bin/sdkman-init.sh ]; then
+      source bin/sdkman-init.sh
 
       sdk version
       sdk install groovy
@@ -75,7 +72,7 @@ sleep 10
 
 if [ -s "$NVM_DIR/nvm.sh" ]; then
     cd $NVM_DIR
-    ./nvm.sh
+    source nvm.sh
     nvm install node
     nvm install --lts
 
