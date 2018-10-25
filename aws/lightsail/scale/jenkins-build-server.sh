@@ -39,7 +39,7 @@ docker --version
 apt-get install -y python3 python3-pip
 python3 --version
 pip3 --version
-pip install awscli
+pip3 install awscli
 
 # Ruby
 apt-get install -y ruby-full
@@ -115,9 +115,9 @@ ln -s go-$GO_VERSION go
 ln -s /usr/local/go/bin/go /usr/local/bin/go
 
 # Packer
-wget "https://releases.hashicorp.com/packer/$PACKER_VERSION/packer_$PACKER_VERSION\\_linux_amd64.zip"
-unzip "packer_$PACKER_VERSION\\_linux_amd64.zip"
-rm "packer_$PACKER_VERSION\\_linux_amd64.zip"
+wget "https://releases.hashicorp.com/packer/$PACKER_VERSION/packer_$PACKER_VERSION\_linux_amd64.zip"
+unzip "packer_$PACKER_VERSION\_linux_amd64.zip"
+rm "packer_$PACKER_VERSION\_linux_amd64.zip"
 mkdir packer-$PACKER_VERSION
 mv packer packer-$PACKER_VERSION
 chmod 755 packer-$PACKER_VERSION
@@ -125,9 +125,9 @@ ln -s packer-$PACKER_VERSION packer
 ln -s /usr/local/packer/packer /usr/local/bin/packer
 
 # Terraform
-wget "https://releases.hashicorp.com/terraform/$TF_VERSION/terraform_$TF_VERSION\\_linux_amd64.zip"
-unzip "terraform_$TF_VERSION\\_linux_amd64.zip"
-rm "terraform_$TF_VERSION\\_linux_amd64.zip"
+wget "https://releases.hashicorp.com/terraform/$TF_VERSION/terraform_$TF_VERSION\_linux_amd64.zip"
+unzip "terraform_$TF_VERSION\_linux_amd64.zip"
+rm "terraform_$TF_VERSION\_linux_amd64.zip"
 mkdir terraform-$TF_VERSION
 mv terraform terraform-$TF_VERSION
 chmod 755 terraform-$TF_VERSION
