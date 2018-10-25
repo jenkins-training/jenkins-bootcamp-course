@@ -5,6 +5,8 @@ MVN_VERSION="3.5.4"
 ANT_VERSION="1.10.5"
 GRADLE_VERSION="4.10.2"
 GROOVY_VERION="2.5.3"
+SCALA_VERION="2.12.7"
+SBT_VERSION="1.2.6"
 
 # Update from OS install
 apt-get update -y
@@ -62,6 +64,14 @@ rm apache-groovy-binary-$GROOVY_VERION.zip
 chmod 755 apache-groovy-$GROOVY_VERION
 ln -s apache-groovy-$GROOVY_VERION groovy
 ln -s groovy/bin/groovy bin/groovy
+
+# SBT
+https://piccolo.link/sbt-$SBT_VERSION.tgz
+tar -xvzf sbt-$SBT_VERSION.tgz
+rm sbt-$SBT_VERSION.tgz
+chmod 755 sbt-$SBT_VERSION
+ln -s sbt-$SBT_VERSION sbt
+ln -s sbt/bin/sbt bin/sbt
 
 
 
