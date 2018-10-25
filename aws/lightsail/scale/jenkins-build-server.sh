@@ -84,6 +84,7 @@ ln -s /usr/local/groovy/bin/groovy /usr/local/bin/groovy
 wget https://piccolo.link/sbt-$SBT_VERSION.tgz
 tar -xvzf sbt-$SBT_VERSION.tgz
 rm sbt-$SBT_VERSION.tgz
+mv sbt sbt-$SBT_VERSION
 chmod 755 sbt-$SBT_VERSION
 ln -s sbt-$SBT_VERSION sbt
 ln -s /usr/local/sbt/bin/sbt /usr/local/bin/sbt
