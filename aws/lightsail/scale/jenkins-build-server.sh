@@ -4,6 +4,7 @@
 MVN_VERSION="3.5.4"
 ANT_VERSION="1.10.5"
 GRADLE_VERSION="4.10.2"
+GROOVY_VERION="2.5.3"
 
 # Update from OS install
 apt-get update -y
@@ -53,6 +54,16 @@ rm gradle-$GRADLE_VERSION-bin.zip
 chmod 755 gradle-$GRADLE_VERSION
 ln -s gradle-$GRADLE_VERSION gradle
 ln -s gradle/bin/gradle bin/gradle
+
+# Groovy
+wget https://dl.bintray.com/groovy/maven/apache-groovy-binary-$GROOVY_VERION.zip
+unzip apache-groovy-binary-$GROOVY_VERION.zip
+rm apache-groovy-binary-$GROOVY_VERION.zip
+chmod 755 apache-groovy-$GROOVY_VERION
+ln -s apache-groovy-$GROOVY_VERION groovy
+ln -s groovy/bin/groovy bin/groovy
+
+
 
 # Node via NVM
 cd /usr/local
