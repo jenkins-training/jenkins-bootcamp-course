@@ -25,17 +25,19 @@ docker --version
 cd /usr/local
 
 # Setup SDK Man
-export SDKMAN_DIR="/usr/local/sdkman"
-curl -s "https://get.sdkman.io" | bash
+export SDKMAN_DIR="/usr/local/sdkman" && curl -s "https://get.sdkman.io" | bash
+
 sleep 10
 if [ -d $SDKMAN_DIR ]; then
     cd $SDKMAN_DIR/etc
-    echo "sdkman_auto_answer=true" >> config
-    chmod 644 config
+    pwd
+    sed -i "s/sdkman_auto_answer=false/sdkman_auto_answer=true/g" config
 
-    cd $SDKMAN_DIR
-    if [ -s bin/sdkman-init.sh ]; then
-      source bin/sdkman-init.sh
+    cd $SDKMAN_DIR/bin
+    pwd
+    if [ -s sdkman-init.sh ]; then
+    #  source sdkman-init.sh
+      [ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ] && \. "$SDKMAN_DIR/bin/sdkman-init.sh"
 
       sdk version
       sdk install groovy
@@ -69,10 +71,9 @@ chmod 755 nvm
 export NVM_DIR="/usr/local/nvm"
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 sleep 10
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 if [ -s "$NVM_DIR/nvm.sh" ]; then
-    cd $NVM_DIR
-    source nvm.sh
     nvm install node
     nvm install --lts
 
