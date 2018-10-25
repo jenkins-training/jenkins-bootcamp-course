@@ -142,7 +142,6 @@ ln -s dart-sass-$SASS_VERSION sass
 ln -s sass/sass bin/sass
 ln -s sass/dart-sass bin/dart-sass
 
-
 # Node via NVM
 cd /usr/local
 mkdir -p /usr/local/nvm
