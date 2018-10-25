@@ -2,6 +2,7 @@
 
 # Variables
 MVN_VERSION="3.5.4"
+ANT_VERSION="1.10.5"
 
 # Update from OS install
 apt-get update -y
@@ -25,8 +26,27 @@ apt-get update -y
 apt-get install -y docker-ce
 docker --version
 
-# Maven
+# Install stuff in /usr/local
 cd /usr/local
+
+# Maven
+wget https://www-us.apache.org/dist/maven/maven-3/$MVN_VERSION/binaries/apache-maven-$MVN_VERSION-bin.tar.gz
+tar -xvzf apache-maven-$MVN_VERSION-bin.tar.gz
+rm apache-maven-$MVN_VERSION-bin.tar.gz
+chmod 755 apache-maven-$MVN_VERSION
+ln -s apache-maven-$MVN_VERSION maven
+ln -s maven/bin/mvn bin/mvn
+
+# Ant
+wget https://www-us.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz
+tar -xvzf apache-ant-$ANT_VERSION-bin.tar.gz
+rm apache-ant-$ANT_VERSION-bin.tar.gz
+chmod 755 apache-ant-$ANT_VERSION
+ln -s apache-ant-$ANT_VERSION ant
+ln -s ant/bin/ant bin/ant
+
+# Gradle
+
 
 # Node via NVM
 cd /usr/local
