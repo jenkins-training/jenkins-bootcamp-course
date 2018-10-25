@@ -115,8 +115,9 @@ ln -s go-$GO_VERSION go
 ln -s go/bin/go bin/go
 
 # Packer
-wget https://releases.hashicorp.com/packer/$PACKER_VERSION/packer_$PACKER_VERSION\\_linux_amd64.zip
-unzip packer_$PACKER_VERSION\\_linux_amd64.zip
+wget "https://releases.hashicorp.com/packer/$PACKER_VERSION/packer_$PACKER_VERSION\\_linux_amd64.zip"
+unzip "packer_$PACKER_VERSION\\_linux_amd64.zip"
+rm "packer_$PACKER_VERSION\\_linux_amd64.zip"
 mkdir packer-$PACKER_VERSION
 mv packer packer-$PACKER_VERSION
 chmod 755 packer-$PACKER_VERSION
@@ -124,8 +125,9 @@ ln -s packer-$PACKER_VERSION packer
 ln -s packer/packer bin/packer
 
 # Terraform
-wget https://releases.hashicorp.com/terraform/$TF_VERSION/terraform_$TF_VERSION\\_linux_amd64.zip
-unzip terraform_$TF_VERSION\\_linux_amd64.zip
+wget "https://releases.hashicorp.com/terraform/$TF_VERSION/terraform_$TF_VERSION\\_linux_amd64.zip"
+unzip "terraform_$TF_VERSION\\_linux_amd64.zip"
+rm "terraform_$TF_VERSION\\_linux_amd64.zip"
 mkdir terraform-$TF_VERSION
 mv terraform terraform-$TF_VERSION
 chmod 755 terraform-$TF_VERSION
