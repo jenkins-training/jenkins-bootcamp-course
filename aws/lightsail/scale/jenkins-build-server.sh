@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Variables
+MVN_VERSION="3.5.4"
+
 # Update from OS install
 apt-get update -y
 sleep 10
@@ -22,47 +25,8 @@ apt-get update -y
 apt-get install -y docker-ce
 docker --version
 
+# Maven
 cd /usr/local
-
-# Setup SDK Man
-export SDKMAN_DIR="/usr/local/sdkman" && curl -s "https://get.sdkman.io" | bash
-
-sleep 10
-if [ -d $SDKMAN_DIR ]; then
-    cd $SDKMAN_DIR/etc
-    pwd
-    sed -i "s/sdkman_auto_answer=false/sdkman_auto_answer=true/g" config
-
-    cd $SDKMAN_DIR/bin
-    pwd
-    if [ -s sdkman-init.sh ]; then
-    #  source sdkman-init.sh
-      [ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ] && \. "$SDKMAN_DIR/bin/sdkman-init.sh"
-
-      sdk version
-      sdk install groovy
-      sdk install maven
-      sdk install gradle
-      sdk install scala
-      sdk install sbt
-      sdk install ant
-      sdk install kotlin
-      sdk install kscript
-
-      # Symlinks to tools
-      cd /usr/local
-      ln -s sdkman/candidates/maven maven
-      ln -s sdkman/candidates/ant ant
-      ln -s sdkman/candidates/groovy groovy
-      ln -s sdkman/candidates/gradle gradle
-      ln -s sdkman/candidates/sbt sbt
-      ln -s sdkman/candidates/scala scala
-      ln -s sdkman/candidates/kotlin kotlin
-      ln -s sdkman/candidates/kscript kscript
-    fi
-else
-  echo "Unable to find $SDKMAN_DIR; several tools not installed"
-fi
 
 # Node via NVM
 cd /usr/local
