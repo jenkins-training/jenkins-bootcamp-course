@@ -76,8 +76,8 @@ ln -s gradle/bin/gradle bin/gradle
 wget https://dl.bintray.com/groovy/maven/apache-groovy-binary-$GROOVY_VERION.zip
 unzip apache-groovy-binary-$GROOVY_VERION.zip
 rm apache-groovy-binary-$GROOVY_VERION.zip
-chmod 755 apache-groovy-$GROOVY_VERION
-ln -s apache-groovy-$GROOVY_VERION groovy
+chmod 755 groovy-$GROOVY_VERION
+ln -s groovy-$GROOVY_VERION groovy
 ln -s groovy/bin/groovy bin/groovy
 
 # SBT
