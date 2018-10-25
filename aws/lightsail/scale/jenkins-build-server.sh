@@ -9,7 +9,9 @@ SCALA_VERION="2.12.7"
 SBT_VERSION="1.2.6"
 KOTLIN_VERSION="1.2.71"
 GO_VERSION="1.11.1"
-
+PACKER_VERSION="1.3.1"
+TF_VERSION="0.11.10"
+SASS_VERSION="1.14.3"
 
 # Update from OS install
 apt-get update -y
@@ -38,6 +40,10 @@ apt-get install -y python3 python3-pip
 python3 --version
 pip3 --version
 pip install awscli
+
+# Ruby
+apt-get install -y ruby-full
+gem install bundler
 
 # Install stuff in /usr/local
 cd /usr/local
@@ -108,6 +114,35 @@ mv go go-$GO_VERSION
 ln -s go-$GO_VERSION go
 ln -s go/bin/go bin/go
 
+# Packer
+wget https://releases.hashicorp.com/packer/$PACKER_VERSION/packer_$PACKER_VERSION\\_linux_amd64.zip
+unzip packer_$PACKER_VERSION\\_linux_amd64.zip
+mkdir packer-$PACKER_VERSION
+mv packer packer-$PACKER_VERSION
+chmod 755 packer-$PACKER_VERSION
+ln -s packer-$PACKER_VERSION packer
+ln -s packer/packer bin/packer
+
+# Terraform
+wget https://releases.hashicorp.com/terraform/$TF_VERSION/terraform_$TF_VERSION\\_linux_amd64.zip
+unzip terraform_$TF_VERSION\\_linux_amd64.zip
+mkdir terraform-$TF_VERSION
+mv terraform terraform-$TF_VERSION
+chmod 755 terraform-$TF_VERSION
+ln -s terraform-$TF_VERSION terraform
+ln -s terraform/terraform bin/terraform
+ln -s terraform/terraform bin/tf
+
+# Sass
+wget https://github.com/sass/dart-sass/releases/download/$SASS_VERSION/dart-sass-$SASS_VERSION-linux-x64.tar.gz
+tar -xvxf dart-sass-$SASS_VERSION-linux-x64.tar.gz
+rm dart-sass-$SASS_VERSION-linux-x64.tar.gz
+mv dart-sass dart-sass-$SASS_VERSION
+ln -s dart-sass-$SASS_VERSION sass
+ln -s sass/sass bin/sass
+ln -s sass/dart-sass bin/dart-sass
+
+
 # Node via NVM
 cd /usr/local
 mkdir -p /usr/local/nvm
@@ -121,8 +156,8 @@ if [ -s "$NVM_DIR/nvm.sh" ]; then
     nvm install node
     nvm install --lts
 
-    nvm exec --lts npm install -g karma grunt-cli webpack gulp-cli
-    nvm exec npm install -g karma grunt-cli webpack gulp-cli
+    nvm exec --lts npm install -g karma grunt-cli webpack gulp-cli less typescript @angular/cli cordova ionic
+    nvm exec npm install -g karma grunt-cli webpack gulp-cli less typescript @angular/cli cordova ionic
 fi
 
 # Setup Jenkins user
