@@ -3,6 +3,7 @@
 # Variables
 MVN_VERSION="3.5.4"
 ANT_VERSION="1.10.5"
+GRADLE_VERSION="4.10.2"
 
 # Update from OS install
 apt-get update -y
@@ -46,7 +47,12 @@ ln -s apache-ant-$ANT_VERSION ant
 ln -s ant/bin/ant bin/ant
 
 # Gradle
-
+wget https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip
+unzip gradle-$GRADLE_VERSION-bin.zip
+rm gradle-$GRADLE_VERSION-bin.zip
+chmod 755 gradle-$GRADLE_VERSION
+ln -s gradle-$GRADLE_VERSION gradle
+ln -s gradle/bin/gradle bin/gradle
 
 # Node via NVM
 cd /usr/local
