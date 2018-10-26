@@ -156,10 +156,10 @@ sleep 10
 
 if [ -s "$NVM_DIR/nvm.sh" ]; then
     echo '\nexport NVM_DIR="/usr/local/nvm"' >> /root/.bashrc
-    echo '. \$NVM_DIR/nvm.sh' >> /root/.bashrc
+    echo '. $NVM_DIR/nvm.sh' >> /root/.bashrc
 
     echo '\nexport NVM_DIR="/usr/local/nvm"' >> /home/ubuntu/.bashrc
-    echo '. \$NVM_DIR/nvm.sh' >> /home/ubuntu/.bashrc
+    echo '. $NVM_DIR/nvm.sh' >> /home/ubuntu/.bashrc
     chown ubuntu.ubuntu /home/ubuntu/.bashrc
 
     # Install latest Argon LTS
@@ -180,7 +180,7 @@ if [ -s "$NVM_DIR/nvm.sh" ]; then
     node version
     NODE_VERSION=`node --version`
     ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-$NODE_VERSION
-    npm install -g grunt-cli webpack-cli gulp-cli less typescript cordova ionic
+    npm install -g grunt-cli webpack webpack-cli gulp-cli less typescript cordova ionic
 
     # Install latest Carbon LTS
     nvm install --lts=carbon
@@ -191,18 +191,19 @@ if [ -s "$NVM_DIR/nvm.sh" ]; then
     NODE_VERSION=`node --version`
     ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-$NODE_VERSION
     ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-lts
-    npm install -g grunt-cli webpack-cli gulp-cli less typescript @angular/cli cordova ionic
+    npm install -g grunt-cli webpack webpack-cli gulp-cli less typescript @angular/cli cordova ionic
 
     # Install latest
     nvm install node
     nvm use node
+    nvm alias default node
     sleep 5
     nvm version
     node version
     NODE_VERSION=`node --version`
     ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-$NODE_VERSION
     ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs
-    npm install -g grunt-cli webpack-cli gulp-cli less typescript @angular/cli cordova ionic
+    npm install -g grunt-cli webpack webpack-cli gulp-cli less typescript @angular/cli cordova ionic
 fi
 
 # Setup Jenkins user
@@ -214,7 +215,7 @@ if [ -d /home/jenkins ]; then
     cd /home/jenkins
 
     echo '\nexport NVM_DIR="/usr/local/nvm"' >> /home/jenkins/.bashrc
-    echo '. \$NVM_DIR/nvm.sh' >> /home/jenkins/.bashrc
+    echo '. $NVM_DIR/nvm.sh' >> /home/jenkins/.bashrc
     chown jenkins.jenkins /home/jenkins/.bashrc
 
     mkdir .ssh

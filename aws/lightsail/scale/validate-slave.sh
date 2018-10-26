@@ -46,7 +46,7 @@ npm --version
 grunt --version
 gulp --version
 webpack --version
-typescript --version
+tsc --version
 less --version
 cordova telemetry off
 cordova --version
