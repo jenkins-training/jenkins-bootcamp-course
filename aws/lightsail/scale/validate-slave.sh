@@ -35,7 +35,7 @@ sass --version
 
 echo "Validate NVM and nodejs"
 nvm ls
-which node npm grunt gulp webpack tsc less cordova ionic
+which node npm grunt gulp webpack tsc less cordova ionic ng
 nvm which lts/argon
 nvm which lts/boron
 nvm which lts/carbon
@@ -51,3 +51,4 @@ less --version
 cordova telemetry off
 cordova --version
 ionic --version
+ng --version
