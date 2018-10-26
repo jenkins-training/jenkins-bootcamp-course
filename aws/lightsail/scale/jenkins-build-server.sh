@@ -155,42 +155,54 @@ sleep 10
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 if [ -s "$NVM_DIR/nvm.sh" ]; then
-    echo "\nexport \$NVM_DIR=/usr/local/nvm\n" >> /root/.bashrc
-    echo ". \$NVM_DIR/nvm.sh" >> /root/.bashrc
+    echo '\nexport NVM_DIR="/usr/local/nvm"' >> /root/.bashrc
+    echo '. \$NVM_DIR/nvm.sh' >> /root/.bashrc
 
-    echo "\nexport \$NVM_DIR=/usr/local/nvm\n" >> /home/ubuntu/.bashrc
-    echo ". \$NVM_DIR/nvm.sh" >> /home/ubuntu/.bashrc
+    echo '\nexport NVM_DIR="/usr/local/nvm"' >> /home/ubuntu/.bashrc
+    echo '. \$NVM_DIR/nvm.sh' >> /home/ubuntu/.bashrc
     chown ubuntu.ubuntu /home/ubuntu/.bashrc
 
     # Install latest Argon LTS
     nvm install --lts=argon
     nvm use --lts=argon
-    $NODE_VERSION=`nvm version`
+    sleep 5
+    nvm version
+    node version
+    NODE_VERSION=`node --version`
     ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-$NODE_VERSION
-    npm install -g grunt-cli webpack gulp-cli less typescript @angular/cli cordova ionic
+    npm install -g grunt-cli gulp-cli less typescript
 
     # Install latest Boron LTS
     nvm install --lts=boron
     nvm use --lts=boron
-    $NODE_VERSION=`nvm version`
+    sleep 5
+    nvm version
+    node version
+    NODE_VERSION=`node --version`
     ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-$NODE_VERSION
-    npm install -g grunt-cli webpack gulp-cli less typescript @angular/cli cordova ionic
+    npm install -g grunt-cli webpack-cli gulp-cli less typescript cordova ionic
 
     # Install latest Carbon LTS
     nvm install --lts=carbon
     nvm use --lts=carbon
-    $NODE_VERSION=`nvm version`
+    sleep 5
+    nvm version
+    node version
+    NODE_VERSION=`node --version`
     ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-$NODE_VERSION
     ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-lts
-    npm install -g grunt-cli webpack gulp-cli less typescript @angular/cli cordova ionic
+    npm install -g grunt-cli webpack-cli gulp-cli less typescript @angular/cli cordova ionic
 
     # Install latest
     nvm install node
     nvm use node
-    $NODE_VERSION=`nvm version`
+    sleep 5
+    nvm version
+    node version
+    NODE_VERSION=`node --version`
     ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-$NODE_VERSION
     ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs
-    npm install -g grunt-cli webpack gulp-cli less typescript @angular/cli cordova ionic
+    npm install -g grunt-cli webpack-cli gulp-cli less typescript @angular/cli cordova ionic
 fi
 
 # Setup Jenkins user
@@ -201,8 +213,8 @@ adduser jenkins sudo
 if [ -d /home/jenkins ]; then
     cd /home/jenkins
 
-    echo "\nexport \$NVM_DIR=/usr/local/nvm\n" >> /home/jenkins/.bashrc
-    echo ". \$NVM_DIR/nvm.sh" >> /home/jenkins/.bashrc
+    echo '\nexport NVM_DIR="/usr/local/nvm"' >> /home/jenkins/.bashrc
+    echo '. \$NVM_DIR/nvm.sh' >> /home/jenkins/.bashrc
     chown jenkins.jenkins /home/jenkins/.bashrc
 
     mkdir .ssh

@@ -29,6 +29,25 @@ groovy -version
 scala -version
 kotlin -version
 go version
-packer --version
-terraform --version
+packer version
+terraform version
 sass --version
+
+echo "Validate NVM and nodejs"
+nvm ls
+which node npm grunt gulp webpack typescript less cordova ionic
+nvm which lts/argon
+nvm which lts/boron
+nvm which lts/carbon
+nvm which stable
+nvm which current
+node --version
+npm --version
+grunt --version
+gulp --version
+webpack --version
+typescript --version
+less --version
+cordova telemetry off
+cordova --version
+ionic --version
