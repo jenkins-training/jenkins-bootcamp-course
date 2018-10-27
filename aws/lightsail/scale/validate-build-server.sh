@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Make sure NVM is loaded
+. $NVM_DIR/nvm.sh
+
 echo "Validate tools installed using package manager"
 which git docker nano zip unzip curl wget
 docker --version
