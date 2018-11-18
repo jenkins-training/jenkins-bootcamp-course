@@ -18,22 +18,12 @@ apt-get update -y
 sleep 10
 
 # Common utilities
-apt-get install -y nano wget curl git python3
+apt-get install -y nano wget curl git
 apt-get install -y zip unzip
 apt-get install -y build-essentials
 
 # Install Java 8
 apt-get install -y openjdk-8-jdk openjdk-8-jdk-headless
-
-# Docker (official)
-apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-
-cd /etc/apt/sources.list.d
-echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" >> docker.list
-apt-get update -y
-apt-get install -y docker-ce
-docker --version
 
 # Python 3, Pip and AWS CLI
 apt-get install -y python3 python3-pip
@@ -44,6 +34,16 @@ pip3 install awscli
 # Ruby
 apt-get install -y ruby-full
 gem install bundler
+
+# Docker (official)
+apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+
+cd /etc/apt/sources.list.d
+echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" >> docker.list
+apt-get update -y
+apt-get install -y docker-ce
+docker --version
 
 # Install stuff in /usr/local
 cd /usr/local
