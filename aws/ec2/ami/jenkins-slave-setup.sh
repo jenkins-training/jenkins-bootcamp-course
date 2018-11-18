@@ -155,10 +155,10 @@ sleep 10
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 if [ -s "$NVM_DIR/nvm.sh" ]; then
-    echo '\nexport NVM_DIR="/usr/local/nvm"' >> /root/.bashrc
+    echo 'export NVM_DIR="/usr/local/nvm"' >> /root/.bashrc
     echo '. $NVM_DIR/nvm.sh' >> /root/.bashrc
 
-    echo '\nexport NVM_DIR="/usr/local/nvm"' >> /home/ubuntu/.bashrc
+    echo 'export NVM_DIR="/usr/local/nvm"' >> /home/ubuntu/.bashrc
     echo '. $NVM_DIR/nvm.sh' >> /home/ubuntu/.bashrc
     chown ubuntu.ubuntu /home/ubuntu/.bashrc
 
@@ -182,7 +182,7 @@ if [ -s "$NVM_DIR/nvm.sh" ]; then
     ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-$NODE_VERSION
     npm install -g grunt-cli webpack webpack-cli gulp-cli less typescript cordova ionic
 
-    # Install latest Carbon LTS
+    # Install Carbon LTS
     nvm install --lts=carbon
     nvm use --lts=carbon
     sleep 5
@@ -190,7 +190,6 @@ if [ -s "$NVM_DIR/nvm.sh" ]; then
     node --version
     NODE_VERSION=`node --version`
     ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-$NODE_VERSION
-    ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-lts
     npm install -g grunt-cli webpack webpack-cli gulp-cli less typescript @angular/cli cordova ionic
 
     # Install latest Dubnium LTS
@@ -225,7 +224,7 @@ adduser jenkins sudo
 if [ -d /home/jenkins ]; then
     cd /home/jenkins
 
-    echo '\nexport NVM_DIR="/usr/local/nvm"' >> /home/jenkins/.bashrc
+    echo 'export NVM_DIR="/usr/local/nvm"' >> /home/jenkins/.bashrc
     echo '. $NVM_DIR/nvm.sh' >> /home/jenkins/.bashrc
     chown jenkins.jenkins /home/jenkins/.bashrc
 
