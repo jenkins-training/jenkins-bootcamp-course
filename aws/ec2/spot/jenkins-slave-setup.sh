@@ -102,9 +102,9 @@ ln -s scala-$SCALA_VERION scala
 ln -s /usr/local/scala/bin/scala /usr/local/bin/scala
 
 # Kotlin
-wget https://github.com/JetBrains/kotlin/releases/download/v$KOTLIN_VERSION/kotlin-compiler-$KOTLIN_VERSION-linux-x64.zip
-unzip kotlin-compiler-$KOTLIN_VERSION-linux-x64.zip
-rm kotlin-compiler-$KOTLIN_VERSION-linux-x64.zip
+wget https://github.com/JetBrains/kotlin/releases/download/v$KOTLIN_VERSION/kotlin-compiler-$KOTLIN_VERSION.zip
+unzip kotlin-compiler-$KOTLIN_VERSION.zip
+rm kotlin-compiler-$KOTLIN_VERSION.zip
 mv kotlinc kotlin-$KOTLIN_VERSION
 ln -s kotlin-$KOTLIN_VERSION kotlin
 ln -s /usr/local/kotlin/bin/kotlin /usr/local/bin/kotlin
