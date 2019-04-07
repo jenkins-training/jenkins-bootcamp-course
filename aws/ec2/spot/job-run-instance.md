@@ -22,12 +22,12 @@ Binding = AWS Creds (defaults ok)
 Replace with your own values from AWS account, example from Instructor's account.
 
 ```
-AMI_ID=ami-0a313d6098716f372
+AMI_ID=ami-123a456b78
 INST_TYPE=m5.xlarge
 INST_COUNT=1
 KEY_NAME=aws-jenkins-slave
-SEC_GROUPS=sg-0a41ea8a45a49e748
-SUBNET_ID=subnet-650f804b
+SEC_GROUPS=sg-1a2b3c4d5e6
+SUBNET_ID=subnet-123z987
 AWS_DEFAULT_REGION=us-east-1
 ```
 
