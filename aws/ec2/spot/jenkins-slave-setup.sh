@@ -1,20 +1,24 @@
 #!/bin/bash
 
+export DEBIAN_FRONTEND=noninteractive 
+
 # Variables
 MVN_VERSION="3.6.0"
 ANT_VERSION="1.10.5"
-GRADLE_VERSION="4.10.2"
-GROOVY_VERION="2.5.4"
-SCALA_VERION="2.12.7"
-SBT_VERSION="1.2.6"
-KOTLIN_VERSION="1.3.10"
-GO_VERSION="1.11.2"
-PACKER_VERSION="1.3.2"
-TF_VERSION="0.11.10"
-SASS_VERSION="1.15.1"
+GRADLE_VERSION="5.3.1"
+GROOVY_VERION="2.5.6"
+SCALA_VERION="2.12.8"
+SBT_VERSION="1.2.8"
+KOTLIN_VERSION="1.3.21"
+GO_VERSION="1.12.1"
+PACKER_VERSION="1.3.5"
+TF_VERSION="0.11.13"
+SASS_VERSION="1.17.3"
 
 # Update from OS install
 apt-get update -y
+apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' upgrade
+apt-get autoremove -y
 sleep 10
 
 # Common utilities
@@ -29,7 +33,7 @@ apt-get install -y openjdk-8-jdk openjdk-8-jdk-headless
 apt-get install -y python3 python3-pip
 python3 --version
 pip3 --version
-pip3 install awscli
+pip3 install awscli requests boto3
 
 # Ruby
 apt-get install -y ruby-full
