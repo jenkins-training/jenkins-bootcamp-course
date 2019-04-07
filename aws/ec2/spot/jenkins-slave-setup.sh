@@ -54,19 +54,27 @@ cd /usr/local
 
 # Maven
 wget https://www-us.apache.org/dist/maven/maven-3/$MVN_VERSION/binaries/apache-maven-$MVN_VERSION-bin.tar.gz
-tar -xvzf apache-maven-$MVN_VERSION-bin.tar.gz
-rm apache-maven-$MVN_VERSION-bin.tar.gz
-chmod 755 apache-maven-$MVN_VERSION
-ln -s apache-maven-$MVN_VERSION maven
-ln -s /usr/local/maven/bin/mvn /usr/local/bin/mvn
+if [ -f apache-maven-$MVN_VERSION-bin.tar.gz ]; then
+    tar -xvzf apache-maven-$MVN_VERSION-bin.tar.gz
+    rm apache-maven-$MVN_VERSION-bin.tar.gz
+    chmod 755 apache-maven-$MVN_VERSION
+    ln -s apache-maven-$MVN_VERSION maven
+    ln -s /usr/local/maven/bin/mvn /usr/local/bin/mvn
+else
+    echo "FAIL: apache-maven-$MVN_VERSION-bin.tar.gz failed to download - unable to install"
+fi
 
 # Ant
 wget https://www-us.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz
-tar -xvzf apache-ant-$ANT_VERSION-bin.tar.gz
-rm apache-ant-$ANT_VERSION-bin.tar.gz
-chmod 755 apache-ant-$ANT_VERSION
-ln -s apache-ant-$ANT_VERSION ant
-ln -s /usr/local/ant/bin/ant /usr/local/bin/ant
+if [ -f apache-ant-$ANT_VERSION-bin.tar.gz ]; then
+    tar -xvzf apache-ant-$ANT_VERSION-bin.tar.gz
+    rm apache-ant-$ANT_VERSION-bin.tar.gz
+    chmod 755 apache-ant-$ANT_VERSION
+    ln -s apache-ant-$ANT_VERSION ant
+    ln -s /usr/local/ant/bin/ant /usr/local/bin/ant
+else
+    echo "FAIL: apache-ant-$ANT_VERSION-bin.tar.gz failed to download - unable to install"
+fi
 
 # Gradle
 wget https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip
@@ -94,68 +102,96 @@ fi
 
 # SBT
 wget https://piccolo.link/sbt-$SBT_VERSION.tgz
-tar -xvzf sbt-$SBT_VERSION.tgz
-rm sbt-$SBT_VERSION.tgz
-mv sbt sbt-$SBT_VERSION
-chmod 755 sbt-$SBT_VERSION
-ln -s sbt-$SBT_VERSION sbt
-ln -s /usr/local/sbt/bin/sbt /usr/local/bin/sbt
+if [ -f sbt-$SBT_VERSION.tgz ]; then
+    tar -xvzf sbt-$SBT_VERSION.tgz
+    rm sbt-$SBT_VERSION.tgz
+    mv sbt sbt-$SBT_VERSION
+    chmod 755 sbt-$SBT_VERSION
+    ln -s sbt-$SBT_VERSION sbt
+    ln -s /usr/local/sbt/bin/sbt /usr/local/bin/sbt
+else
+    echo "FAIL: sbt-$SBT_VERSION.tgz failed to download - unable to install"
+fi
 
 # Scala
 wget https://downloads.lightbend.com/scala/$SCALA_VERION/scala-$SCALA_VERION.tgz
-tar -xvzf scala-$SCALA_VERION.tgz
-rm scala-$SCALA_VERION.tgz
-chmod 755 scala-$SCALA_VERION
-ln -s scala-$SCALA_VERION scala
-ln -s /usr/local/scala/bin/scala /usr/local/bin/scala
+if [ -f scala-$SCALA_VERION.tgz ]; then
+    tar -xvzf scala-$SCALA_VERION.tgz
+    rm scala-$SCALA_VERION.tgz
+    chmod 755 scala-$SCALA_VERION
+    ln -s scala-$SCALA_VERION scala
+    ln -s /usr/local/scala/bin/scala /usr/local/bin/scala
+else
+    echo "FAIL: scala-$SCALA_VERION.tgz failed to download - unable to install"
+fi
 
 # Kotlin
 wget https://github.com/JetBrains/kotlin/releases/download/v$KOTLIN_VERSION/kotlin-compiler-$KOTLIN_VERSION.zip
-unzip kotlin-compiler-$KOTLIN_VERSION.zip
-rm kotlin-compiler-$KOTLIN_VERSION.zip
-mv kotlinc kotlin-$KOTLIN_VERSION
-ln -s kotlin-$KOTLIN_VERSION kotlin
-ln -s /usr/local/kotlin/bin/kotlin /usr/local/bin/kotlin
-ln -s /usr/local/kotlin/bin/kotlinc /usr/local/bin/kotlinc
-ln -s /usr/local/kotlin/bin/kotlin-compiler /usr/local/bin/kotlin-compiler
+if [ -f kotlin-compiler-$KOTLIN_VERSION.zip ]; then
+    unzip kotlin-compiler-$KOTLIN_VERSION.zip
+    rm kotlin-compiler-$KOTLIN_VERSION.zip
+    mv kotlinc kotlin-$KOTLIN_VERSION
+    ln -s kotlin-$KOTLIN_VERSION kotlin
+    ln -s /usr/local/kotlin/bin/kotlin /usr/local/bin/kotlin
+    ln -s /usr/local/kotlin/bin/kotlinc /usr/local/bin/kotlinc
+    ln -s /usr/local/kotlin/bin/kotlin-compiler /usr/local/bin/kotlin-compiler
+else
+    echo "FAIL: kotlin-compiler-$KOTLIN_VERSION.zip failed to download - unable to install"
+fi
 
 # Go Lang
 wget https://dl.google.com/go/go$GO_VERSION.linux-amd64.tar.gz
-tar -xvzf go$GO_VERSION.linux-amd64.tar.gz
-rm go$GO_VERSION.linux-amd64.tar.gz
-mv go go-$GO_VERSION
-ln -s go-$GO_VERSION go
-ln -s /usr/local/go/bin/go /usr/local/bin/go
+if [ -f go$GO_VERSION.linux-amd64.tar.gz ]; then
+    tar -xvzf go$GO_VERSION.linux-amd64.tar.gz
+    rm go$GO_VERSION.linux-amd64.tar.gz
+    mv go go-$GO_VERSION
+    ln -s go-$GO_VERSION go
+    ln -s /usr/local/go/bin/go /usr/local/bin/go
+else
+    echo "FAIL: go$GO_VERSION.linux-amd64.tar.gz failed to download - unable to install"
+fi
 
 # Packer
 wget "https://releases.hashicorp.com/packer/$PACKER_VERSION/packer_${PACKER_VERSION}_linux_amd64.zip"
-unzip "packer_${PACKER_VERSION}_linux_amd64.zip"
-rm "packer_${PACKER_VERSION}_linux_amd64.zip"
-mkdir packer-$PACKER_VERSION
-mv packer packer-$PACKER_VERSION
-chmod 755 packer-$PACKER_VERSION
-ln -s packer-$PACKER_VERSION packer
-ln -s /usr/local/packer/packer /usr/local/bin/packer
+if [ -f "packer_${PACKER_VERSION}_linux_amd64.zip" ]; then
+    unzip "packer_${PACKER_VERSION}_linux_amd64.zip"
+    rm "packer_${PACKER_VERSION}_linux_amd64.zip"
+    mkdir packer-$PACKER_VERSION
+    mv packer packer-$PACKER_VERSION
+    chmod 755 packer-$PACKER_VERSION
+    ln -s packer-$PACKER_VERSION packer
+    ln -s /usr/local/packer/packer /usr/local/bin/packer
+else
+    echo "FAIL: packer.zip failed to download - unable to install"
+fi
 
 # Terraform
 wget "https://releases.hashicorp.com/terraform/$TF_VERSION/terraform_${TF_VERSION}_linux_amd64.zip"
-unzip "terraform_${TF_VERSION}_linux_amd64.zip"
-rm "terraform_${TF_VERSION}_linux_amd64.zip"
-mkdir terraform-$TF_VERSION
-mv terraform terraform-$TF_VERSION
-chmod 755 terraform-$TF_VERSION
-ln -s terraform-$TF_VERSION terraform
-ln -s /usr/local/terraform/terraform /usr/local/bin/terraform
-ln -s /usr/local/terraform/terraform /usr/local/bin/tf
+if [ -f "terraform_${TF_VERSION}_linux_amd64.zip" ]; then
+    unzip "terraform_${TF_VERSION}_linux_amd64.zip"
+    rm "terraform_${TF_VERSION}_linux_amd64.zip"
+    mkdir terraform-$TF_VERSION
+    mv terraform terraform-$TF_VERSION
+    chmod 755 terraform-$TF_VERSION
+    ln -s terraform-$TF_VERSION terraform
+    ln -s /usr/local/terraform/terraform /usr/local/bin/terraform
+    ln -s /usr/local/terraform/terraform /usr/local/bin/tf
+else
+    echo "FAIL: terraform.zip failed to download - unable to install"
+fi
 
 # Sass
 wget https://github.com/sass/dart-sass/releases/download/$SASS_VERSION/dart-sass-$SASS_VERSION-linux-x64.tar.gz
-tar -xvxf dart-sass-$SASS_VERSION-linux-x64.tar.gz
-rm dart-sass-$SASS_VERSION-linux-x64.tar.gz
-mv dart-sass dart-sass-$SASS_VERSION
-ln -s dart-sass-$SASS_VERSION sass
-ln -s /usr/local/sass/sass /usr/local/bin/sass
-ln -s /usr/local/sass/dart-sass /usr/local/bin/dart-sass
+if [ -f dart-sass-$SASS_VERSION-linux-x64.tar.gz ]; then
+    tar -xvxf dart-sass-$SASS_VERSION-linux-x64.tar.gz
+    rm dart-sass-$SASS_VERSION-linux-x64.tar.gz
+    mv dart-sass dart-sass-$SASS_VERSION
+    ln -s dart-sass-$SASS_VERSION sass
+    ln -s /usr/local/sass/sass /usr/local/bin/sass
+    ln -s /usr/local/sass/dart-sass /usr/local/bin/dart-sass
+else
+    echo "FAIL: dart-sass-$SASS_VERSION-linux-x64.tar.gz failed to download - unable to install"
+fi
 
 # Node via NVM
 cd /usr/local
@@ -226,6 +262,8 @@ if [ -s "$NVM_DIR/nvm.sh" ]; then
     ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-$NODE_VERSION
     ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs
     npm install -g grunt-cli webpack webpack-cli gulp-cli less typescript @angular/cli cordova ionic
+else
+    echo "FAIL: NVM failed to download - unable to install"
 fi
 
 # Setup Jenkins user
