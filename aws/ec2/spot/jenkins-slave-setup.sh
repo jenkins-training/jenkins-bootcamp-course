@@ -69,20 +69,28 @@ ln -s apache-ant-$ANT_VERSION ant
 ln -s /usr/local/ant/bin/ant /usr/local/bin/ant
 
 # Gradle
-wget https://gradle.org/next-steps/?version=$GRADLE_VERSION&format=bin
-unzip gradle-$GRADLE_VERSION-bin.zip
-rm gradle-$GRADLE_VERSION-bin.zip
-chmod 755 gradle-$GRADLE_VERSION
-ln -s gradle-$GRADLE_VERSION gradle
-ln -s /usr/local/gradle/bin/gradle /usr/local/bin/gradle
+wget https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip
+if [ -f gradle-$GRADLE_VERSION-bin.zip ]; then
+    unzip gradle-$GRADLE_VERSION-bin.zip
+    rm gradle-$GRADLE_VERSION-bin.zip
+    chmod 755 gradle-$GRADLE_VERSION
+    ln -s gradle-$GRADLE_VERSION gradle
+    ln -s /usr/local/gradle/bin/gradle /usr/local/bin/gradle
+else
+    echo "FAIL: gradle-$GRADLE_VERSION-bin.zip failed to download - unable to install"
+fi
 
 # Groovy
 wget https://dl.bintray.com/groovy/maven/apache-groovy-binary-$GROOVY_VERION.zip
-unzip apache-groovy-binary-$GROOVY_VERION.zip
-rm apache-groovy-binary-$GROOVY_VERION.zip
-chmod 755 groovy-$GROOVY_VERION
-ln -s groovy-$GROOVY_VERION groovy
-ln -s /usr/local/groovy/bin/groovy /usr/local/bin/groovy
+if [ -f apache-groovy-binary-$GROOVY_VERION.zip ]; then
+    unzip apache-groovy-binary-$GROOVY_VERION.zip
+    rm apache-groovy-binary-$GROOVY_VERION.zip
+    chmod 755 groovy-$GROOVY_VERION
+    ln -s groovy-$GROOVY_VERION groovy
+    ln -s /usr/local/groovy/bin/groovy /usr/local/bin/groovy
+else
+    echo "FAIL: apache-groovy-binary-$GROOVY_VERION.zip failed to download - unable to install"
+fi
 
 # SBT
 wget https://piccolo.link/sbt-$SBT_VERSION.tgz
