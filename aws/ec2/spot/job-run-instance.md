@@ -23,12 +23,12 @@ Replace with your own values from AWS account, example from Instructor's account
 
 ```
 AMI_ID=ami-0a313d6098716f372
-INST_TYPE=t2.medium
+INST_TYPE=m5.xlarge
 INST_COUNT=1
 KEY_NAME=aws-jenkins-slave
 SEC_GROUPS=sg-0a41ea8a45a49e748
-SUBNET_ID=subnet-1e34b942
-AWS_REGION=us-east-1
+SUBNET_ID=subnet-650f804b
+AWS_DEFAULT_REGION=us-east-1
 ```
 
 ## Execute Shell
