@@ -69,7 +69,7 @@ ln -s apache-ant-$ANT_VERSION ant
 ln -s /usr/local/ant/bin/ant /usr/local/bin/ant
 
 # Gradle
-wget https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip
+wget https://gradle.org/next-steps/?version=$GRADLE_VERSION&format=bin
 unzip gradle-$GRADLE_VERSION-bin.zip
 rm gradle-$GRADLE_VERSION-bin.zip
 chmod 755 gradle-$GRADLE_VERSION
