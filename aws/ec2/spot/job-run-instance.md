@@ -12,7 +12,9 @@ No changes
 
 Binding = AWS Creds (defaults ok)
 
-### Inject Enviroment (Propertie content)
+### Inject Enviroment (Properties content)
+
+Replace with your own values from AWS account, example from Instructor's account.
 
 ```
 AMI_ID="ami-0a313d6098716f372"
@@ -20,7 +22,7 @@ INST_TYPE="t2.medium"
 INST_COUNT=1
 KEY_NAME="aws-jenkins-slave"
 SG_IDS="sg-0a41ea8a45a49e748"
-SUBNET="subnet-650f804b"
+SUBNET_ID="subnet-650f804b"
 ```
 
 ## Execute Shell
@@ -32,5 +34,5 @@ echo "download user data script"
 wget https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/master/aws/ec2/spot/jenkins-slave-setup.sh
 
 echo "Spin up EC2 Instance"
-aws ec2 run-instances --region us-east-1 --image-id ${AMI_ID} --count ${INST_COUNT} --instance-type ${INST_TYPE} --key-name ${KEY_NAME} --security-group-ids ${SG_IDS} --subnet-id ${SUBNET} --user-data file://jenkins-slave-setup.sh
+aws ec2 run-instances --region us-east-1 --image-id ${AMI_ID} --count ${INST_COUNT} --instance-type ${INST_TYPE} --key-name ${KEY_NAME} --security-group-ids ${SG_IDS} --subnet-id ${SUBNET_ID} --user-data file://jenkins-slave-setup.sh
 ```
