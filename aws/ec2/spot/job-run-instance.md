@@ -2,6 +2,11 @@
 
 This assumes the AWS CLI is available on the build node used.
 
+## Job (Freestyle)
+
+**Folder**: utilities
+**Name**: ec2-instance-run
+
 ## Build Environment
 
 ### Delete Workspace
