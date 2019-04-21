@@ -29,7 +29,7 @@ apt-get autoremove -y
 sleep 10
 
 # Common utilities
-apt-get install -y nano wget curl git zip unzip build-essentials python3 python3-pip apt-transport-https ca-certificates curl software-properties-common
+apt-get install -y nano wget curl git zip unzip python3 python3-pip apt-transport-https ca-certificates curl software-properties-common
 
 # # Docker (official)
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
@@ -57,7 +57,7 @@ chmod +x /usr/local/bin/docker-compose
 echo "Installing Kubernetes"
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add
 cd /etc/apt/sources.list.d
-echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" >> docker.list
+echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" >> kubernetes.list
 apt-get install -y kubeadm kubectl
 
 echo "Docker is installed"
