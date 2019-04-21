@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# curl https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/master/docker/install/docker-linux-mint.sh -o docker-setup.sh
+# chmod +x docker-setup.sh
+# sudo ./docker-setup.sh <username>
+
 CUR_USER=`whoami`
 if [ "${CUR_USER}" == "root" ]; then
   echo "Good, running as root"
