@@ -58,6 +58,7 @@ echo "Installing Kubernetes"
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add
 cd /etc/apt/sources.list.d
 echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" >> kubernetes.list
+apt-get update -y
 apt-get install -y kubeadm kubectl
 
 echo "Docker is installed"
