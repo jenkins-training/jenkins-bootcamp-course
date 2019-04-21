@@ -62,4 +62,4 @@ apt-get install -y kubeadm kubectl
 
 echo "Docker is installed"
 echo "Add yourself to the docker group with:"
-echo "\t usermod -aG docker <username>"
+echo "  sudo usermod -aG docker <username>"
