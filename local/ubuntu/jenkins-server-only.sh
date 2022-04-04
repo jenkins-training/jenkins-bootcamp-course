@@ -56,22 +56,8 @@ cd /etc/nginx/sites-enabled
 rm default
 
 cd /etc/nginx/conf.d
+wget https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/main/local/ubuntu/nginx-jenkins.conf
 
-cat << 'EOF' > jenkins-proxy.conf
-server {
-  listen 80;
-  listen [::]:80;
-
-  access_log /var/log/nginx/jenkins-access.log;
-  error_log /var/log/nginx/jenkins-error.log;
-  
-  location / {
-      proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_pass http://localhost:8080/;
-  }
-}
-EOF
 
 systemctl restart nginx
 systemctl enable nginx
