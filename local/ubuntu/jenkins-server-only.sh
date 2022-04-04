@@ -56,7 +56,7 @@ cd /etc/nginx/sites-enabled
 rm default
 
 cd /etc/nginx/conf.d
-wget https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/main/local/ubuntu/nginx-jenkins.conf
+wget -O jenkins-server-proxy.conf https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/main/local/ubuntu/nginx-jenkins.conf
 
 
 systemctl restart nginx
