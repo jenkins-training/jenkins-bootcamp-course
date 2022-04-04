@@ -58,12 +58,10 @@ rm default
 cd /etc/nginx/conf.d
 wget -O jenkins-server-proxy.conf https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/main/local/ubuntu/nginx-jenkins.conf
 
-
 systemctl restart nginx
 systemctl enable nginx
 
 echo "Installation Complete."
-echo "If running on Ubuntu Desktop - access http://localhost/"
-echo "Otherwise: Update your hosts file to point to this IP address"
+echo "Configure your hosts file to point to the server using the hostname: jenkins.local"
 
 cd
