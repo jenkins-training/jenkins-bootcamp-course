@@ -23,14 +23,18 @@ apt-get install -y openjdk-11-jre-headless openjdk-11-jdk-headless
 ## Maven Install
 echo "Installing Maven $MVN_VER"
 cd /usr/local
-wget http://www-us.apache.org/dist/maven/maven-3/$MVN_VER/binaries/apache-maven-$MVN_VER-bin.tar.gz
+
+wget https://dlcdn.apache.org/maven/maven-3/$MVN_VER/binaries/apache-maven-$MVN_VER-bin.tar.gz
 
 if [ -f apache-maven-$MVN_VER-bin.tar.gz ]; then
+  echo "Installing Maven 3"
   tar -xvzf apache-maven-$MVN_VER-bin.tar.gz
   ln -s apache-maven-$MVN_VER maven
   chown -R root.root apache-maven-$MVN_VER
   chmod 755 apache-maven-$MVN_VER
   ln -s maven/bin/mvn bin/mvn
+else
+  echo "Unable to find Maven installer"
 fi
 
 # install Jenkins LTS
