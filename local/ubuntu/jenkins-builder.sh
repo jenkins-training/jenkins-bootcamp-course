@@ -19,6 +19,7 @@ MVN_VERSION="3.8.5"
 ANT_VERSION="1.10.12"
 GRADLE_VERSION="7.4.2"
 GROOVY_VERION="4.0.1"
+
 KOTLIN_VERSION="1.3.10"
 GO_VERSION="1.11.2"
 PACKER_VERSION="1.3.2"
@@ -69,7 +70,7 @@ if [ -f apache-maven-$MVN_VERSION-bin.tar.gz ]; then
   ln -s apache-maven-$MVN_VERSION maven
   chown -R root.root apache-maven-$MVN_VERSION
   chmod 755 apache-maven-$MVN_VERSION
-  ln -s maven/bin/mvn bin/mvn
+  ln -s /usr/local/maven/bin/mvn /usr/local/bin/mvn
 else
   echo "Unable to find Maven installer"
 fi
@@ -107,27 +108,39 @@ if [ -f apache-groovy-binary-$GROOVY_VERION.zip ]; then
     ln -s /usr/local/groovy/bin/groovy /usr/local/bin/groovy
 fi
 
-# SBT
-echo "Installing SBT"
-echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | tee /etc/apt/sources.list.d/sbt.list
-echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | tee /etc/apt/sources.list.d/sbt_old.list
-curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | apt-key add
-apt-get update -y
-apt-get install -y sbt
-
 # Scala tooling (Coursier)
 echo "Installing Coursier"
 cd /usr/local/bin
-curl -fL https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz | gzip -d > cs
+if [ "$OS_ARCH" == "aarch64" ]; then
+    curl -fL https://github.com/coursier/launchers/raw/master/cs-aarch64-pc-linux.gz | gzip -d > cs
+else
+    curl -fL https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz | gzip -d > cs
+fi
 chmod +x cs
 ./cs setup --yes
 cd /usr/local
 
-### more stuff here
+# AWS CLI v2
+echo "Setup AWS CLI"
+if [ "$OS_ARCH" == "aarch64" ]; then
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
+else
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+fi
+
+if [ -f awscliv2.zip ]; then
+    unzip awscliv2.zip
+    ./aws/install
+    rm awscliv2.zip
+fi
+
 
 # Setup Jenkins user
 cd
-if [ ! -d /home/jenkins ]; then
-    adduser --disabled-password --gecos "" jenkins
-    adduser jenkins sudo
+if [ ! -d /var/lib/jenkins ]; then
+    echo "Setup Jenkins user"
+    if [ ! -d /home/jenkins ]; then
+        adduser --disabled-password --gecos "" jenkins
+        adduser jenkins sudo
+    fi
 fi
