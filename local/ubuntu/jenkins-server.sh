@@ -1,11 +1,14 @@
 #!/bin/bash
 
-### VARS
+if [ -f /etc/os-release ]; then
+    source /etc/os-release
+else
+    echo "Not Ubuntu - bailing"
+    exit 1
+fi
 
-# Maven Version
-MVN_VER=3.8.5
-
-### END VARS
+OS_ARCH=$(uname -m)
+echo "Detecting ${PRETTY_NAME} on ${OS_ARCH}"
 
 echo "Jenkins Server install script for Ubuntu"
 echo "Script has been prepared for and tested on Ubuntu 20.04.x LTS"
@@ -19,23 +22,6 @@ apt-get install -y nano zip unzip wget curl git
 # Install Java 11
 echo "Installing Java 11 LTS (OpenJDK - headless)"
 apt-get install -y openjdk-11-jre-headless openjdk-11-jdk-headless
-
-## Maven Install
-echo "Installing Maven $MVN_VER"
-cd /usr/local
-
-wget https://dlcdn.apache.org/maven/maven-3/$MVN_VER/binaries/apache-maven-$MVN_VER-bin.tar.gz
-
-if [ -f apache-maven-$MVN_VER-bin.tar.gz ]; then
-  echo "Installing Maven 3"
-  tar -xvzf apache-maven-$MVN_VER-bin.tar.gz
-  ln -s apache-maven-$MVN_VER maven
-  chown -R root.root apache-maven-$MVN_VER
-  chmod 755 apache-maven-$MVN_VER
-  ln -s maven/bin/mvn bin/mvn
-else
-  echo "Unable to find Maven installer"
-fi
 
 # install Jenkins LTS
 echo "Installing Jenkins server"

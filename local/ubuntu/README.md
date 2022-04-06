@@ -24,5 +24,11 @@ The following items will be installed/setup:
 Run (copy and paste) the following command in the Terminal in your Ubuntu server:
 
 ```bash
-sudo bash -c "$(wget -q https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/main/local/ubuntu/jenkins-server-only.sh -O -)"
+wget -qO - https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/main/local/ubuntu/jenkins-server.sh | sudo bash
+```
+
+## Jenkins Build Compontents
+
+```bash
+wget -qO - https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/main/local/ubuntu/jenkins-builder.sh | sudo bash -s maven
 ```
