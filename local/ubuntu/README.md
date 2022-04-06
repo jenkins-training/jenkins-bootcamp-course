@@ -21,13 +21,27 @@ The following items will be installed/setup:
 
 ## Jenkins Server Setup
 
-Run (copy and paste) the following command in the Terminal in your Ubuntu server:
+Run (copy and paste) the following command(s) in the Terminal in your Ubuntu server.
+
+### Jenkins Server (combined)
+
+Jenkins server and build components within same system:
+
+```bash
+wget -qO - https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/main/local/ubuntu/jenkins-combined.sh | sudo bash
+```
+
+### Jenkins Server (only)
+
+Jenkins server only:
 
 ```bash
 wget -qO - https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/main/local/ubuntu/jenkins-server.sh | sudo bash
 ```
 
-## Jenkins Build Compontents
+### Jenkins Build Compontents
+
+Jenkins build node components:
 
 ```bash
 wget -qO - https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/main/local/ubuntu/jenkins-builder.sh | sudo bash -s maven

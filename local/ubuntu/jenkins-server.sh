@@ -43,9 +43,14 @@ apt-get install -y nginx
 
 # remove default symlink
 cd /etc/nginx/sites-enabled
-rm default
+if [ -e default ]; then
+  rm default
+fi
 
 cd /etc/nginx/conf.d
+if [ -f jenkins-server-proxy.conf ]; then
+  rm jenkins-server-proxy.conf
+fi
 wget -O jenkins-server-proxy.conf https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/main/local/ubuntu/nginx-jenkins.conf
 
 systemctl restart nginx

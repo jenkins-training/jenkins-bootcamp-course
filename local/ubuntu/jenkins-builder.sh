@@ -19,7 +19,6 @@ MVN_VERSION="3.8.5"
 ANT_VERSION="1.10.12"
 GRADLE_VERSION="7.4.2"
 GROOVY_VERION="4.0.1"
-SCALA_VERION="2.12.7"
 KOTLIN_VERSION="1.3.10"
 GO_VERSION="1.11.2"
 PACKER_VERSION="1.3.2"
@@ -109,157 +108,26 @@ if [ -f apache-groovy-binary-$GROOVY_VERION.zip ]; then
 fi
 
 # SBT
+echo "Installing SBT"
 echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | tee /etc/apt/sources.list.d/sbt.list
 echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | tee /etc/apt/sources.list.d/sbt_old.list
 curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | apt-key add
 apt-get update -y
 apt-get install -y sbt
 
-# Scala
-wget https://downloads.lightbend.com/scala/$SCALA_VERION/scala-$SCALA_VERION.tgz
-tar -xvzf scala-$SCALA_VERION.tgz
-rm scala-$SCALA_VERION.tgz
-chmod 755 scala-$SCALA_VERION
-ln -s scala-$SCALA_VERION scala
-ln -s /usr/local/scala/bin/scala /usr/local/bin/scala
-
-# Kotlin
-wget https://github.com/JetBrains/kotlin/releases/download/v$KOTLIN_VERSION/kotlin-compiler-$KOTLIN_VERSION-linux-x64.zip
-unzip kotlin-compiler-$KOTLIN_VERSION-linux-x64.zip
-rm kotlin-compiler-$KOTLIN_VERSION-linux-x64.zip
-mv kotlinc kotlin-$KOTLIN_VERSION
-ln -s kotlin-$KOTLIN_VERSION kotlin
-ln -s /usr/local/kotlin/bin/kotlin /usr/local/bin/kotlin
-ln -s /usr/local/kotlin/bin/kotlinc /usr/local/bin/kotlinc
-ln -s /usr/local/kotlin/bin/kotlin-compiler /usr/local/bin/kotlin-compiler
-
-# Go Lang
-wget https://dl.google.com/go/go$GO_VERSION.linux-amd64.tar.gz
-tar -xvzf go$GO_VERSION.linux-amd64.tar.gz
-rm go$GO_VERSION.linux-amd64.tar.gz
-mv go go-$GO_VERSION
-ln -s go-$GO_VERSION go
-ln -s /usr/local/go/bin/go /usr/local/bin/go
-
-# Packer
-wget "https://releases.hashicorp.com/packer/$PACKER_VERSION/packer_${PACKER_VERSION}_linux_amd64.zip"
-unzip "packer_${PACKER_VERSION}_linux_amd64.zip"
-rm "packer_${PACKER_VERSION}_linux_amd64.zip"
-mkdir packer-$PACKER_VERSION
-mv packer packer-$PACKER_VERSION
-chmod 755 packer-$PACKER_VERSION
-ln -s packer-$PACKER_VERSION packer
-ln -s /usr/local/packer/packer /usr/local/bin/packer
-
-# Terraform
-wget "https://releases.hashicorp.com/terraform/$TF_VERSION/terraform_${TF_VERSION}_linux_amd64.zip"
-unzip "terraform_${TF_VERSION}_linux_amd64.zip"
-rm "terraform_${TF_VERSION}_linux_amd64.zip"
-mkdir terraform-$TF_VERSION
-mv terraform terraform-$TF_VERSION
-chmod 755 terraform-$TF_VERSION
-ln -s terraform-$TF_VERSION terraform
-ln -s /usr/local/terraform/terraform /usr/local/bin/terraform
-ln -s /usr/local/terraform/terraform /usr/local/bin/tf
-
-# Sass
-wget https://github.com/sass/dart-sass/releases/download/$SASS_VERSION/dart-sass-$SASS_VERSION-linux-x64.tar.gz
-tar -xvxf dart-sass-$SASS_VERSION-linux-x64.tar.gz
-rm dart-sass-$SASS_VERSION-linux-x64.tar.gz
-mv dart-sass dart-sass-$SASS_VERSION
-ln -s dart-sass-$SASS_VERSION sass
-ln -s /usr/local/sass/sass /usr/local/bin/sass
-ln -s /usr/local/sass/dart-sass /usr/local/bin/dart-sass
-
-# Node via NVM
+# Scala tooling (Coursier)
+echo "Installing Coursier"
+cd /usr/local/bin
+curl -fL https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz | gzip -d > cs
+chmod +x cs
+./cs setup --yes
 cd /usr/local
-mkdir -p /usr/local/nvm
-chmod 755 nvm
-export NVM_DIR="/usr/local/nvm"
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-sleep 10
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-if [ -s "$NVM_DIR/nvm.sh" ]; then
-    echo '\nexport NVM_DIR="/usr/local/nvm"' >> /root/.bashrc
-    echo '. $NVM_DIR/nvm.sh' >> /root/.bashrc
-
-    echo '\nexport NVM_DIR="/usr/local/nvm"' >> /home/ubuntu/.bashrc
-    echo '. $NVM_DIR/nvm.sh' >> /home/ubuntu/.bashrc
-    chown ubuntu.ubuntu /home/ubuntu/.bashrc
-
-    # Install latest Argon LTS
-    nvm install --lts=argon
-    nvm use --lts=argon
-    sleep 5
-    nvm version
-    node --version
-    NODE_VERSION=`node --version`
-    ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-$NODE_VERSION
-    npm install -g grunt-cli gulp-cli less typescript
-
-    # Install latest Boron LTS
-    nvm install --lts=boron
-    nvm use --lts=boron
-    sleep 5
-    nvm version
-    node --version
-    NODE_VERSION=`node --version`
-    ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-$NODE_VERSION
-    npm install -g grunt-cli webpack webpack-cli gulp-cli less typescript cordova ionic
-
-    # Install latest Carbon LTS
-    nvm install --lts=carbon
-    nvm use --lts=carbon
-    sleep 5
-    nvm version
-    node --version
-    NODE_VERSION=`node --version`
-    ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-$NODE_VERSION
-    ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-lts
-    npm install -g grunt-cli webpack webpack-cli gulp-cli less typescript @angular/cli cordova ionic
-
-    # Install latest Dubnium LTS
-    nvm install --lts=dubnium
-    nvm use --lts=dubnium
-    sleep 5
-    nvm version
-    node --version
-    NODE_VERSION=`node --version`
-    ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-$NODE_VERSION
-    ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-lts
-    npm install -g grunt-cli webpack webpack-cli gulp-cli less typescript @angular/cli cordova ionic
-
-    # Install latest
-    nvm install node
-    nvm use node
-    nvm alias default node
-    sleep 5
-    nvm version
-    node --version
-    NODE_VERSION=`node --version`
-    ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-$NODE_VERSION
-    ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs
-    npm install -g grunt-cli webpack webpack-cli gulp-cli less typescript @angular/cli cordova ionic
-fi
+### more stuff here
 
 # Setup Jenkins user
 cd
-adduser --disabled-password --gecos "" jenkins
-adduser jenkins sudo
-
-if [ -d /home/jenkins ]; then
-    cd /home/jenkins
-
-    echo '\nexport NVM_DIR="/usr/local/nvm"' >> /home/jenkins/.bashrc
-    echo '. $NVM_DIR/nvm.sh' >> /home/jenkins/.bashrc
-    chown jenkins.jenkins /home/jenkins/.bashrc
-
-    mkdir .ssh
-    chmod 700 .ssh
-    chown jenkins.jenkins .ssh
-    cd .ssh
-    cp /home/ubuntu/.ssh/authorized_keys .
-    chmod 600 authorized_keys
-    chown jenkins.jenkins authorized_keys
+if [ ! -d /home/jenkins ]; then
+    adduser --disabled-password --gecos "" jenkins
+    adduser jenkins sudo
 fi
