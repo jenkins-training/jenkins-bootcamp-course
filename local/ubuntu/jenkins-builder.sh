@@ -297,7 +297,7 @@ if [ -s "$NVM_DIR/nvm.sh" ]; then
     NODE_VERSION=`node --version`
     ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-$NODE_VERSION
     ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-lts
-    npm install -g grunt-cli webpack webpack-cli gulp-cli less typescript @angular/cli cordova ionic
+    npm install -g grunt-cli webpack webpack-cli gulp-cli less typescript @angular/cli cordova ionic sass
 
     # Install Latest
     nvm install node
@@ -309,7 +309,7 @@ if [ -s "$NVM_DIR/nvm.sh" ]; then
     NODE_VERSION=`node --version`
     ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-$NODE_VERSION
     ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs
-    npm install -g grunt-cli webpack webpack-cli gulp-cli less typescript @angular/cli cordova ionic
+    npm install -g grunt-cli webpack webpack-cli gulp-cli less typescript @angular/cli cordova ionic sass
 fi
 
 
