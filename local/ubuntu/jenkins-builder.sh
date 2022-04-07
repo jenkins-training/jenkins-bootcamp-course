@@ -19,11 +19,11 @@ MVN_VERSION="3.8.5"
 ANT_VERSION="1.10.12"
 GRADLE_VERSION="7.4.2"
 GROOVY_VERION="4.0.1"
+KOTLIN_VERSION="1.6.20"
+GO_VERSION="1.18"
+PACKER_VERSION="1.8.0"
+TF_VERSION="1.1.7"
 
-KOTLIN_VERSION="1.3.10"
-GO_VERSION="1.11.2"
-PACKER_VERSION="1.3.2"
-TF_VERSION="0.11.10"
 SASS_VERSION="1.15.1"
 
 # Update from OS install
@@ -158,6 +158,105 @@ if [ ! -e /usr/local/bin/cs ]; then
     cd /usr/local
 fi
 
+# Kotlin
+if [ ! -d kotlin-$KOTLIN_VERSION ]; then 
+    wget https://github.com/JetBrains/kotlin/releases/download/v$KOTLIN_VERSION/kotlin-compiler-$KOTLIN_VERSION.zip
+    if [ -f kotlin-compiler-$KOTLIN_VERSION.zip ]; then
+        unzip kotlin-compiler-$KOTLIN_VERSION.zip
+        rm kotlin-compiler-$KOTLIN_VERSION.zip
+        mv kotlinc kotlin-$KOTLIN_VERSION
+        if [ -e kotlin ]; then
+            rm kotlin
+        fi
+        ln -s kotlin-$KOTLIN_VERSION kotlin
+        if [ -e /usr/local/bin/kotlin ]; then
+            rm /usr/local/bin/kotlin
+        fi
+        ln -s /usr/local/kotlin/bin/kotlin /usr/local/bin/kotlin
+        if [ -e /usr/local/bin/kotlinc ]; then
+            rm /usr/local/bin/kotlinc
+        fi
+        ln -s /usr/local/kotlin/bin/kotlinc /usr/local/bin/kotlinc
+        if [ -e /usr/local/bin/kotlin-compiler ]; then
+            rm /usr/local/bin/kotlin-compiler
+        fi
+        ln -s /usr/local/kotlin/bin/kotlin-compiler /usr/local/bin/kotlin-compiler
+    fi
+fi
+
+# Go Lang
+if [ ! -d go-$GO_VERSION ]; then
+    if [ "$OS_ARCH" == "aarch64" ]; then
+        wget -O go$GO_VERSION.tar.gz https://dl.google.com/go/go$GO_VERSION.linux-arm64.tar.gz
+    else
+        wget -O go$GO_VERSION.tar.gz https://dl.google.com/go/go$GO_VERSION.linux-amd64.tar.gz
+    fi
+
+    if [ -e go ]; then
+        rm go
+    fi
+
+    tar -xvzf go$GO_VERSION.tar.gz
+    rm go$GO_VERSION.tar.gz
+    mv go go-$GO_VERSION
+    ln -s go-$GO_VERSION go
+
+    if [ -e ]; then
+        rm /usr/local/bin/go
+    fi 
+    ln -s /usr/local/go/bin/go /usr/local/bin/go
+fi
+
+# Packer
+if [ ! -d packer-$PACKER_VERSION ]; then
+    if [ "$OS_ARCH" == "aarch64" ]; then
+        wget -O packer.zip https://releases.hashicorp.com/packer/$PACKER_VERSION/packer_${PACKER_VERSION}_linux_arm64.zip
+    else
+        wget -O packer.zip https://releases.hashicorp.com/packer/$PACKER_VERSION/packer_${PACKER_VERSION}_linux_amd64.zip
+    fi
+
+    if [ -e packer ]; then
+        rm packer
+    fi
+
+    unzip packer.zip
+    rm packer.zip
+    mkdir packer-$PACKER_VERSION
+    mv packer packer-$PACKER_VERSION
+    chmod 755 packer-$PACKER_VERSION
+    
+    ln -s packer-$PACKER_VERSION packer
+    if [ -e /usr/local/bin/packer ]; then
+        rm /usr/local/bin/packer
+    fi
+    ln -s /usr/local/packer/packer /usr/local/bin/packer
+fi
+
+# Terraform
+if [ ! -d terraform-$TF_VERSION ]; then
+    if [ "$OS_ARCH" == "aarch64" ]; then
+        wget -O terraform.zip https://releases.hashicorp.com/terraform/$TF_VERSION/terraform_${TF_VERSION}_linux_arm64.zip
+    else
+        wget -O terraform.zip https://releases.hashicorp.com/terraform/$TF_VERSION/terraform_${TF_VERSION}_linux_amd64.zip
+    fi
+
+    if [ -e terraform ]; then
+        rm terraform
+    fi
+
+    unzip terraform.zip
+    rm terraform.zip
+    mkdir terraform-$TF_VERSION
+    mv packer terraform-$TF_VERSION
+    chmod 755 terraform-$TF_VERSION
+    
+    ln -s terraform-$TF_VERSION terraform
+    if [ -e /usr/local/bin/terraform ]; then
+        rm /usr/local/bin/terraform
+    fi
+    ln -s /usr/local/terraform/terraform /usr/local/bin/terraform
+fi
+
 # AWS CLI v2
 if [ ! -e /usr/local/bin/aws ]; then
     echo "Setup AWS CLI"
@@ -172,8 +271,9 @@ if [ ! -e /usr/local/bin/aws ]; then
         ./aws/install
         rm awscliv2.zip
     fi
-fi
 
+    aws --version
+fi
 
 # Setup Jenkins user
 cd
