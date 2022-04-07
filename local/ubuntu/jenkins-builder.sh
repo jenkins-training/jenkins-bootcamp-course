@@ -72,6 +72,7 @@ if [ ! -d apache-maven-$MVN_VERSION ]; then
     if [ -f apache-maven-$MVN_VERSION-bin.tar.gz ]; then
         echo "Installing Maven 3"
         tar -xvzf apache-maven-$MVN_VERSION-bin.tar.gz
+        rm apache-maven-$MVN_VERSION-bin.tar.gz
         if [ -e maven ]; then
             rm maven
         fi
@@ -247,7 +248,7 @@ if [ ! -d terraform-$TF_VERSION ]; then
     unzip terraform.zip
     rm terraform.zip
     mkdir terraform-$TF_VERSION
-    mv packer terraform-$TF_VERSION
+    mv terraform terraform-$TF_VERSION
     chmod 755 terraform-$TF_VERSION
     
     ln -s terraform-$TF_VERSION terraform
@@ -275,6 +276,43 @@ if [ ! -e /usr/local/bin/aws ]; then
     aws --version
 fi
 
+cd /usr/local
+mkdir -p /usr/local/nvm
+chmod 755 nvm
+export NVM_DIR="/usr/local/nvm"
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+sleep 10
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+if [ -s "$NVM_DIR/nvm.sh" ]; then
+    echo '\nexport NVM_DIR="/usr/local/nvm"' >> /root/.bashrc
+    echo '. $NVM_DIR/nvm.sh' >> /root/.bashrc
+
+    # Install LTS
+    nvm install --lts=gallium
+    nvm use --lts=gallium
+    sleep 5
+    nvm version
+    node --version
+    NODE_VERSION=`node --version`
+    ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-$NODE_VERSION
+    ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-lts
+    npm install -g grunt-cli webpack webpack-cli gulp-cli less typescript @angular/cli cordova ionic
+
+    # Install Latest
+    nvm install node
+    nvm use node
+    nvm alias default node
+    sleep 5
+    nvm version
+    node --version
+    NODE_VERSION=`node --version`
+    ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs-$NODE_VERSION
+    ln -s /usr/local/nvm/versions/node/$NODE_VERSION /usr/local/nodejs
+    npm install -g grunt-cli webpack webpack-cli gulp-cli less typescript @angular/cli cordova ionic
+fi
+
+
+
 # Setup Jenkins user
 cd
 if [ ! -d /var/lib/jenkins ]; then
@@ -282,5 +320,13 @@ if [ ! -d /var/lib/jenkins ]; then
     if [ ! -d /home/jenkins ]; then
         adduser --disabled-password --gecos "" jenkins
         adduser jenkins sudo
+
+        echo '\nexport NVM_DIR="/usr/local/nvm"' >> /home/jenkins/.bashrc
+        echo '. $NVM_DIR/nvm.sh' >> /home/jenkins/.bashrc
+        chown jenkins.jenkins /home/jenkins/.bashrc
+
+        mkdir .ssh
+        chmod 700 .ssh
+        chown jenkins.jenkins .ssh
     fi
 fi

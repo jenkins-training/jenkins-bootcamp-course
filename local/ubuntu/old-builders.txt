@@ -1,8 +1,6 @@
 #!/bin/bash
 
 # Variables
-PACKER_VERSION="1.3.2"
-TF_VERSION="0.11.10"
 SASS_VERSION="1.15.1"
 
 
