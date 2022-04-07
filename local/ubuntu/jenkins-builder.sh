@@ -43,9 +43,14 @@ apt-get install -y openjdk-11-jdk openjdk-11-jdk-headless
 apt-get install -y apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 
-add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+if [ "$OS_ARCH" == "aarch64" ]; then
+    add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+else
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+fi
 apt-get update -y
 apt-get install -y docker-ce
+apt-cache policy docker-ce
 docker --version
 
 # Python 3 and PIP
