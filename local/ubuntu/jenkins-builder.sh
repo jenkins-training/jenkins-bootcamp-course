@@ -83,14 +83,22 @@ if [ ! -d apache-maven-$MVN_VERSION ]; then
 fi
 
 # Ant
-echo "Installing Apache Ant $ANT_VERSION"
-wget https://dlcdn.apache.org/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz
-if [ -f apache-ant-$ANT_VERSION-bin.tar.gz ]; then
-    tar -xvzf apache-ant-$ANT_VERSION-bin.tar.gz
-    rm apache-ant-$ANT_VERSION-bin.tar.gz
-    chmod 755 apache-ant-$ANT_VERSION
-    ln -s apache-ant-$ANT_VERSION ant
-    ln -s /usr/local/ant/bin/ant /usr/local/bin/ant
+if [ ! -d apache-ant-$ANT_VERSION ]; then
+    echo "Installing Apache Ant $ANT_VERSION"
+    wget https://dlcdn.apache.org/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz
+    if [ -f apache-ant-$ANT_VERSION-bin.tar.gz ]; then
+        tar -xvzf apache-ant-$ANT_VERSION-bin.tar.gz
+        rm apache-ant-$ANT_VERSION-bin.tar.gz
+        chmod 755 apache-ant-$ANT_VERSION
+        if [ -e ant ]; then
+            rm ant
+        fi
+        ln -s apache-ant-$ANT_VERSION ant
+        if [ -e /usr/local/bin/ant ]; then
+            rm /usr/local/bin/ant
+        fi
+        ln -s /usr/local/ant/bin/ant /usr/local/bin/ant
+    fi
 fi
 
 # Gradle
@@ -146,17 +154,19 @@ if [ ! -e /usr/local/bin/cs ]; then
 fi
 
 # AWS CLI v2
-echo "Setup AWS CLI"
-if [ "$OS_ARCH" == "aarch64" ]; then
-    curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
-else
-    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-fi
+if [ ! -e /usr/local/bin/aws ]; then
+    echo "Setup AWS CLI"
+    if [ "$OS_ARCH" == "aarch64" ]; then
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
+    else
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    fi
 
-if [ -f awscliv2.zip ]; then
-    unzip awscliv2.zip
-    ./aws/install
-    rm awscliv2.zip
+    if [ -f awscliv2.zip ]; then
+        unzip awscliv2.zip
+        ./aws/install
+        rm awscliv2.zip
+    fi
 fi
 
 
