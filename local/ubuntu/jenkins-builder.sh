@@ -276,6 +276,7 @@ if [ ! -e /usr/local/bin/aws ]; then
     aws --version
 fi
 
+# NodeJS
 cd /usr/local
 mkdir -p /usr/local/nvm
 chmod 755 nvm
