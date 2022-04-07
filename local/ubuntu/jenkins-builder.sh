@@ -60,19 +60,26 @@ gem install bundler
 # Install stuff in /usr/local
 cd /usr/local
 
-
 ## Maven Install
-echo "Installing Maven $MVN_VERSION"
-wget https://dlcdn.apache.org/maven/maven-3/$MVN_VERSION/binaries/apache-maven-$MVN_VERSION-bin.tar.gz
-if [ -f apache-maven-$MVN_VERSION-bin.tar.gz ]; then
-  echo "Installing Maven 3"
-  tar -xvzf apache-maven-$MVN_VERSION-bin.tar.gz
-  ln -s apache-maven-$MVN_VERSION maven
-  chown -R root.root apache-maven-$MVN_VERSION
-  chmod 755 apache-maven-$MVN_VERSION
-  ln -s /usr/local/maven/bin/mvn /usr/local/bin/mvn
-else
-  echo "Unable to find Maven installer"
+if [ ! -d apache-maven-$MVN_VERSION ]; then
+    echo "Installing Maven $MVN_VERSION"
+    wget https://dlcdn.apache.org/maven/maven-3/$MVN_VERSION/binaries/apache-maven-$MVN_VERSION-bin.tar.gz
+    if [ -f apache-maven-$MVN_VERSION-bin.tar.gz ]; then
+        echo "Installing Maven 3"
+        tar -xvzf apache-maven-$MVN_VERSION-bin.tar.gz
+        if [ -e maven ]; then
+            rm maven
+        fi
+        ln -s apache-maven-$MVN_VERSION maven
+        chown -R root.root apache-maven-$MVN_VERSION
+        chmod 755 apache-maven-$MVN_VERSION
+        if [ -e /usr/local/bin/mvn ]; then
+            rm /usr/local/bin/mvn
+        fi
+        ln -s /usr/local/maven/bin/mvn /usr/local/bin/mvn
+    else
+        echo "Unable to find Maven installer"
+    fi
 fi
 
 # Ant
@@ -87,38 +94,56 @@ if [ -f apache-ant-$ANT_VERSION-bin.tar.gz ]; then
 fi
 
 # Gradle
-echo "Installing Gradle $GRADLE_VERSION"
-wget https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip
-if [ -f gradle-$GRADLE_VERSION-bin.zip ]; then
-    unzip gradle-$GRADLE_VERSION-bin.zip
-    rm gradle-$GRADLE_VERSION-bin.zip
-    chmod 755 gradle-$GRADLE_VERSION
-    ln -s gradle-$GRADLE_VERSION gradle
-    ln -s /usr/local/gradle/bin/gradle /usr/local/bin/gradle
+if [ ! -d gradle-$GRADLE_VERSION ]; then
+    echo "Installing Gradle $GRADLE_VERSION"
+    wget https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip
+    if [ -f gradle-$GRADLE_VERSION-bin.zip ]; then
+        unzip gradle-$GRADLE_VERSION-bin.zip
+        rm gradle-$GRADLE_VERSION-bin.zip
+        chmod 755 gradle-$GRADLE_VERSION
+        if [ -e gradle ]; then
+            rm gradle
+        fi
+        ln -s gradle-$GRADLE_VERSION gradle
+        if [ -e /usr/local/bin/gradle ]; then
+            rm /usr/local/bin/gradle
+        fi
+        ln -s /usr/local/gradle/bin/gradle /usr/local/bin/gradle
+    fi
 fi
 
 # Groovy
-echo "Installing Groovy $GROOVY_VERION"
-wget https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-binary-$GROOVY_VERION.zip
-if [ -f apache-groovy-binary-$GROOVY_VERION.zip ]; then
-    unzip apache-groovy-binary-$GROOVY_VERION.zip
-    rm apache-groovy-binary-$GROOVY_VERION.zip
-    chmod 755 groovy-$GROOVY_VERION
-    ln -s groovy-$GROOVY_VERION groovy
-    ln -s /usr/local/groovy/bin/groovy /usr/local/bin/groovy
+if [ ! -d groovy-$GROOVY_VERION ]; then
+    echo "Installing Groovy $GROOVY_VERION"
+    wget https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-binary-$GROOVY_VERION.zip
+    if [ -f apache-groovy-binary-$GROOVY_VERION.zip ]; then
+        unzip apache-groovy-binary-$GROOVY_VERION.zip
+        rm apache-groovy-binary-$GROOVY_VERION.zip
+        chmod 755 groovy-$GROOVY_VERION
+        if [ -e groovy ]; then
+            rm groovy
+        fi
+        ln -s groovy-$GROOVY_VERION groovy
+        if [ -e /usr/local/bin/groovy ]; then
+            rm /usr/local/bin/groovy
+        fi
+        ln -s /usr/local/groovy/bin/groovy /usr/local/bin/groovy
+    fi
 fi
 
 # Scala tooling (Coursier)
-echo "Installing Coursier"
-cd /usr/local/bin
-if [ "$OS_ARCH" == "aarch64" ]; then
-    curl -fL https://github.com/coursier/launchers/raw/master/cs-aarch64-pc-linux.gz | gzip -d > cs
-else
-    curl -fL https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz | gzip -d > cs
+if [ ! -e /usr/local/bin/cs ]; then
+    echo "Installing Coursier"
+    cd /usr/local/bin
+    if [ "$OS_ARCH" == "aarch64" ]; then
+        curl -fL https://github.com/coursier/launchers/raw/master/cs-aarch64-pc-linux.gz | gzip -d > cs
+    else
+        curl -fL https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz | gzip -d > cs
+    fi
+    chmod +x cs
+    ./cs setup --yes
+    cd /usr/local
 fi
-chmod +x cs
-./cs setup --yes
-cd /usr/local
 
 # AWS CLI v2
 echo "Setup AWS CLI"
