@@ -13,15 +13,10 @@ echo "Detecting ${PRETTY_NAME} on ${OS_ARCH}"
 echo "Jenkins Server install script for Ubuntu"
 echo "Script has been prepared for and tested on Ubuntu 20.04.x LTS"
 
-# Update from OS install
-apt-get update -y
-
-# Common utilities
-apt-get install -y nano zip unzip wget curl git
-
-# Install Java 11
-echo "Installing Java 11 LTS (OpenJDK - headless)"
-apt-get install -y openjdk-11-jre-headless openjdk-11-jdk-headless
+if [ -z "$SETUP_COMMON" ]; then
+    echo "Common stuff - just in case"
+    wget -qO - https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/main/local/ubuntu/common.sh | bash
+fi
 
 # install Jenkins LTS
 echo "Installing Jenkins server"

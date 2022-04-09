@@ -26,18 +26,13 @@ TF_VERSION="1.1.7"
 
 SASS_VERSION="1.15.1"
 
-# Update from OS install
-apt-get update -y
-apt-get upgrade -y
-sleep 10
-
-# Common utilities
-apt-get install -y nano wget curl git python3 python3-pip
-apt-get install -y zip unzip
-apt-get install -y build-essentials
+if [ -z "$SETUP_COMMON" ]; then
+    echo "Common stuff - just in case"
+    wget -qO - https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/main/local/ubuntu/common.sh | bash
+fi
 
 # Install Java 11
-apt-get install -y openjdk-11-jdk openjdk-11-jdk-headless
+apt-get install -y openjdk-11-jdk
 
 # Docker (official)
 apt-get install -y apt-transport-https ca-certificates curl software-properties-common

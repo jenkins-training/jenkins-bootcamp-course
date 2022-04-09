@@ -46,3 +46,11 @@ Jenkins build node components:
 ```bash
 wget -qO - https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/main/local/ubuntu/jenkins-builder.sh | sudo bash -s maven
 ```
+
+### Common
+
+For those that want to save time between refreshes, this script installs the common components like Java, Python, and Git - along with updating the system packages. This is a good option to save a snapshot after running this script.
+
+```bash
+wget -qO - https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/main/local/ubuntu/common.sh | sudo bash
+```
