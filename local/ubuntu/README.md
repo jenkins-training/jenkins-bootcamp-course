@@ -54,3 +54,32 @@ For those that want to save time between refreshes, this script installs the com
 ```bash
 wget -qO - https://raw.githubusercontent.com/jenkins-training/jenkins-bootcamp-course/main/local/ubuntu/common.sh | sudo bash
 ```
+
+
+### Mac M1 using Multipass
+
+```bash
+# download class repo
+cd ~
+mkdir projects
+cd projects
+git clone git@github.com:jenkins-training/jenkins-bootcamp-course.git
+cd jenkins-bootcamp-course
+
+# multipass.run
+brew install multipass
+multipass version           # version info
+multipass help              # help info
+multipass find              # list available images
+multipass launch --name jenkins --cloud-init local/ubuntu/common.yaml
+multipass shell jenkins
+cat /var/log/cloud-init-output.log # within instance, see if cloud init completed
+# run specific setup script as needed
+exit                        # exit instance shell
+multipass info jenkins      # instance info - copy IPv4 address
+nano /etc/hosts             # Add entry: <IPv4>  jenkins.local
+
+# Navigate browser to http://jenkins.local/
+multipass exec jenkins -- sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+# Copy and paste password token into password field to unlock Jenkins
+```
