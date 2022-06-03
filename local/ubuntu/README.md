@@ -71,10 +71,35 @@ brew install multipass
 multipass version           # version info
 multipass help              # help info
 multipass find              # list available images
-multipass launch --name jenkins --cloud-init local/ubuntu/common.yaml
+multipass launch jammy --name jenkins --cloud-init local/ubuntu/common.yaml
 multipass shell jenkins
-cat /var/log/cloud-init-output.log # within instance, see if cloud init completed
+
+# within instance, see if cloud init completed
+cat /var/log/cloud-init-output.log
+
+# install Java
+sudo apt-get install -y openjdk-11-jre-headless openjdk-11-jdk-headless
+
+# get the jenkins key
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo tee \
+  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+cd /etc/apt/sources.list.d
+sudo nano jenkins.list
+
+# contents of jenkins.list
+deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/
+# save and close file
+
+sudo apt-get update
+sudo apt-get install -y jenkins
+
 # run specific setup script as needed
+
+
+
+
+
 exit                        # exit instance shell
 multipass info jenkins      # instance info - copy IPv4 address
 nano /etc/hosts             # Add entry: <IPv4>  jenkins.local
